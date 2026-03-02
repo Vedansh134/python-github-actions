@@ -20,3 +20,5 @@ if __name__ == "__main__":
     print("Multiplication : ", multiply(785,594))
     print("division : ", divide(475,57848))
 
+print("hello github actions\n for testing github actions on push")
+
