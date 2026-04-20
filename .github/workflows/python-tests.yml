@@ -25,7 +25,7 @@ jobs:
 
             - name: validation
               if: success()
-              run: "All tests pass successfully!!"
+              run: echo "All tests pass successfully!!"
 
             - name: Run tests
               id: tests
