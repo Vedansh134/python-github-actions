@@ -29,3 +29,68 @@ jobs:
             - name: validation
               if: success()
               run: "All tests pass successfully!!"
+
+            - name: Run tests
+              id: tests
+              run: python test_calculator.py
+              continue-on-error: true
+
+            - name: Success Notification
+              if: steps.tests.outcome == 'success'
+              uses: dawidd6/action-send-mail@v3
+              with:
+                server_address: smtp.gmail.com
+                server_port: 465
+                username: ${{secrets.MAIL_USERNAME}}
+                password: ${{secrets.MAIL_PASSWORD}}
+                subject: "[✅ SUCCESS] Calculator Tests - Run #${{github.run_number}}"
+                to: kumar.vedansh@thinksys.com
+                from: "GitHub Actions <vedansh.kumar134@gmail.com>"
+                body: |
+                  ====================================
+                  ✅ TEST STATUS: SUCCESS
+                  ====================================
+
+                  Repository: ${{github.repository}}
+                  Branch: ${{github.ref_name}}
+                  Run Number: #${{github.run_number}}
+                  Run ID: ${{github.run_id}}
+
+                  Triggered by: ${{github.actor}}
+
+                  ✅ All tests passed successfully!
+
+                  📊 View detailed logs:
+                  ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
+
+                  ====================================
+
+            - name: Failure Notification
+              if: steps.tests.outcome == 'failure'
+              uses: dawidd6/action-send-mail@v3
+              with:
+                server_address: smtp.gmail.com
+                server_port: 465
+                username: ${{secrets.MAIL_USERNAME}}
+                password: ${{secrets.MAIL_PASSWORD}}
+                subject: "[❌ FAILURE] Calculator Tests - Run #${{github.run_number}}"
+                to: kumar.vedansh@thinksys.com
+                from: "GitHub Actions <vedansh.kumar134@gmail.com>"
+                body: |
+                  ====================================
+                  ❌ TEST STATUS: FAILURE
+                  ====================================
+
+                  Repository: ${{github.repository}}
+                  Branch: ${{github.ref_name}}
+                  Run Number: #${{github.run_number}}
+                  Run ID: ${{github.run_id}}
+
+                  Triggered by: ${{github.actor}}
+
+                  ❌ Tests failed! Immediate attention required.
+
+                  🔍 Check logs here:
+                  ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
+
+                  ====================================
