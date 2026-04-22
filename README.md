@@ -5,4 +5,5 @@
 A simple calculator app to learn GitHub Actions!
 FOR TESTING PURPOSES ONLY - NOT FOR PRODUCTION USE
 
-This is a sample repo, only for practice and test the different branchees setup, etc.
+This is a sample repo, only for practice and test the different branchees setup, etc
+testing.
